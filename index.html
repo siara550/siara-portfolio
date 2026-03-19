@@ -27,7 +27,7 @@
     .nav-links { display: flex; gap: 1.5rem; list-style: none; }
     .nav-links a { font-size: 13px; font-weight: 400; color: var(--fg3); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--fg); }
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 108px; gap: var(--gap); }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 130px; gap: var(--gap); }
     .card { border-radius: var(--radius); padding: 1.25rem 1.4rem; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; cursor: none; opacity: 0; transform: translateY(20px); transition: transform 0.25s cubic-bezier(.22,.68,0,1.2), box-shadow 0.25s, opacity 0.5s ease; }
     .card:hover { transform: translateY(-5px) scale(1.013); box-shadow: 0 14px 40px rgba(0,0,0,0.1); z-index: 2; }
     .lbl { font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--fg3); font-weight: 500; }
@@ -46,31 +46,31 @@
     .c-facts     { grid-column: span 4; grid-row: span 2; background: var(--c-peach); }
     .c-contact   { grid-column: span 8; grid-row: span 2; background: var(--c-mint); }
     .intro-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; font-weight: 500; opacity: 0.6; }
-    .intro-title { font-family: 'Playfair Display', serif; font-size: clamp(26px, 3.2vw, 40px); font-weight: 400; line-height: 1.12; letter-spacing: -1px; color: #3b0764; animation: fl 6s ease-in-out infinite; }
+    .intro-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 400; line-height: 1.12; letter-spacing: -1px; color: #3b0764; animation: fl 6s ease-in-out infinite; }
     .intro-title em { font-style: italic; opacity: 0.55; }
     @keyframes fl { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-    .intro-bio { font-size: 12.5px; line-height: 1.7; color: #5b21b6; opacity: 0.75; max-width: 360px; }
+    .intro-bio { font-size: 15px; line-height: 1.7; color: #5b21b6; opacity: 0.75; max-width: 360px; }
     .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.5rem; }
     .tag { font-size: 10px; padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,0.55); color: #5b21b6; letter-spacing: 0.03em; }
     .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: inline-block; margin-right: 7px; animation: p 2.2s ease-in-out infinite; }
     @keyframes p { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
     .st-main { font-size: 13px; font-weight: 500; color: #7c2d12; display: flex; align-items: center; }
     .st-sub { font-size: 11px; color: #a8a29e; margin-top: 3px; }
-    .school-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 400; color: #064e3b; letter-spacing: -0.4px; line-height: 1.25; }
-    .school-deg { font-size: 11px; color: #059669; opacity: 0.85; line-height: 1.5; margin-top: 4px; }
-    .school-yr { font-size: 10px; color: #6ee7b7; margin-top: 4px; letter-spacing: 0.04em; }
+    .school-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; color: #064e3b; letter-spacing: -0.4px; line-height: 1.25; }
+    .school-deg { font-size: 13px; color: #059669; opacity: 0.85; line-height: 1.5; margin-top: 4px; }
+    .school-yr { font-size: 12px; color: #6ee7b7; margin-top: 4px; letter-spacing: 0.04em; }
     .pnum { font-size: 10px; letter-spacing: 0.1em; opacity: 0.4; font-weight: 500; }
-    .pname { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; letter-spacing: -0.3px; line-height: 1.2; }
-    .pdesc { font-size: 11.5px; line-height: 1.55; opacity: 0.65; }
+    .pname { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; letter-spacing: -0.3px; line-height: 1.2; }
+    .pdesc { font-size: 13.5px; line-height: 1.55; opacity: 0.65; }
     .stacks { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.3rem; }
     .stk { font-size: 10px; padding: 3px 9px; border-radius: 100px; background: rgba(255,255,255,0.55); letter-spacing: 0.03em; }
     .wip { font-size: 9px; padding: 2px 8px; border-radius: 100px; background: rgba(255,255,255,0.7); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; color: #7c3aed; display: inline-block; margin-bottom: 3px; }
-    .ft { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 400; color: #1e3a5f; margin-bottom: 0.5rem; letter-spacing: -0.3px; }
-    .fi { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid rgba(0,0,0,0.07); }
+    .ft { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; color: #1e3a5f; margin-bottom: 0.5rem; letter-spacing: -0.3px; }
+    .fi { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 0.5px solid rgba(0,0,0,0.07); }
     .fi:last-child { border-bottom: none; }
-    .fdot { width: 5px; height: 5px; border-radius: 50%; background: #3b82f6; flex-shrink: 0; margin-top: 4px; }
-    .fn { font-weight: 500; color: #1e3a5f; font-size: 12px; }
-    .fo { font-size: 10.5px; color: #64748b; }
+    .fdot { width: 5px; height: 5px; border-radius: 50%; background: #3b82f6; flex-shrink: 0; margin-top: 5px; }
+    .fn { font-weight: 500; color: #1e3a5f; font-size: 14px; }
+    .fo { font-size: 12px; color: #64748b; }
     .wh { display: flex; justify-content: space-between; align-items: flex-start; }
     .wl { font-size: 10px; color: var(--fg3); text-decoration: none; }
     .wl:hover { color: var(--fg); }
@@ -78,12 +78,12 @@
     .wp { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 0.5px solid rgba(0,0,0,0.07); text-decoration: none; transition: opacity 0.15s; }
     .wp:last-child { border-bottom: none; }
     .wp:hover { opacity: 0.65; }
-    .wpt { font-family: 'Playfair Display', serif; font-size: 12.5px; font-weight: 400; color: #0c4a6e; letter-spacing: -0.2px; line-height: 1.3; }
+    .wpt { font-family: 'Playfair Display', serif; font-size: 14.5px; font-weight: 400; color: #0c4a6e; letter-spacing: -0.2px; line-height: 1.3; }
     .wpd { font-size: 10px; color: #7dd3fc; white-space: nowrap; margin-left: 0.75rem; flex-shrink: 0; }
     .expl { display: flex; flex-direction: column; justify-content: center; flex: 1; gap: 9px; }
-    .er { font-size: 12px; font-weight: 500; color: #831843; }
-    .ep { font-size: 11px; color: #f9a8d4; margin-top: 1px; }
-    .ey { font-size: 10px; color: #fda4af; margin-top: 1px; }
+    .er { font-size: 14px; font-weight: 500; color: #831843; }
+    .ep { font-size: 12.5px; color: #f9a8d4; margin-top: 1px; }
+    .ey { font-size: 11px; color: #fda4af; margin-top: 1px; }
     .res-title { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 400; color: #831843; line-height: 1.35; letter-spacing: -0.2px; }
     .res-org { font-size: 10.5px; color: #f472b6; margin-top: 3px; }
     .res-desc { font-size: 11px; line-height: 1.6; color: #9d174d; opacity: 0.75; margin-top: 0.5rem; }
@@ -95,13 +95,13 @@
     .ci { display: flex; flex-direction: column; gap: 2px; padding: 7px 0; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
     .ci:last-child { border-bottom: none; }
     .ct { font-size: 10px; opacity: 0.45; letter-spacing: 0.07em; text-transform: uppercase; }
-    .cv { font-size: 12.5px; font-weight: 400; color: #78350f; }
-    .fci { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 0.5px solid rgba(0,0,0,0.06); font-size: 12px; color: #7c2d12; line-height: 1.5; }
+    .cv { font-size: 14px; font-weight: 400; color: #78350f; }
+    .fci { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 0.5px solid rgba(0,0,0,0.06); font-size: 14px; color: #7c2d12; line-height: 1.5; }
     .fci:last-child { border-bottom: none; }
-    .fcn { font-size: 10px; opacity: 0.35; font-weight: 500; flex-shrink: 0; margin-top: 2px; }
-    .ctt { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 400; color: #064e3b; letter-spacing: -0.3px; }
+    .fcn { font-size: 11px; opacity: 0.35; font-weight: 500; flex-shrink: 0; margin-top: 2px; }
+    .ctt { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; color: #064e3b; letter-spacing: -0.3px; }
     .cls { display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px 20px; justify-content: flex-start; align-content: center; flex: 1; }
-    .cl-a { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #065f46; text-decoration: none; font-weight: 400; transition: opacity 0.15s, transform 0.15s; min-width: 200px; }
+    .cl-a { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #065f46; text-decoration: none; font-weight: 400; transition: opacity 0.15s, transform 0.15s; min-width: 200px; }
     .cl-a:hover { opacity: 0.7; transform: translateX(3px); }
     .cl-ic { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.6); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: #047857; flex-shrink: 0; }
     footer { margin-top: 2rem; display: flex; justify-content: space-between; font-size: 11px; color: var(--fg3); opacity: 0; animation: fadeUp 0.6s ease 1.2s forwards; }
@@ -263,7 +263,7 @@
         <a class="cl-a" href="https://github.com/siara550" target="_blank"><div class="cl-ic">gh</div>github.com/siara550</a>
         <a class="cl-a" href="https://www.linkedin.com/in/siara-chowdhury/" target="_blank"><div class="cl-ic">in</div>linkedin · siara-chowdhury</a>
         <a class="cl-a" href="https://substack.com/@thoughtswithsiaaa" target="_blank"><div class="cl-ic">✍</div>Substack</a>
-        <a class="cl-a" href="mailto:siarachowdhury550@gmail.com"><div class="cl-ic">@</div>siarachowdhury550@gmail.com</a>
+        <a class="cl-a" href="/cdn-cgi/l/email-protection#72011b130013111a1d05161a07000b47474232151f131b1e5c111d1f"><div class="cl-ic">@</div><span class="__cf_email__" data-cfemail="b2c1dbd3c0d3d1daddc5d6dac7c0cb878782f2d5dfd3dbde9cd1dddf">[email&#160;protected]</span></a>
       </div>
     </div>
 
@@ -275,7 +275,7 @@
   </footer>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
   let mx = 0, my = 0, rx = 0, ry = 0;
@@ -318,15 +318,4 @@
       if (entry.isIntersecting) {
         const i = cards.indexOf(entry.target);
         setTimeout(() => {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }, i * 60);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.05 });
-
-  cards.forEach(c => observer.observe(c));
-</script>
-</body>
-</html>
+          entry.ta
