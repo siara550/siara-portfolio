@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VolunteerNYC - Find Your Impact</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #0a0a0f;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Syne', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 50%, #ff006b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glow-card {
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glow-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            border: none;
+            padding: 14px 32px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .filter-chip {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(30, 30, 40, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .filter-chip:hover {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        .filter-chip.active {
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            border-color: transparent;
+        }
+        
+        .tag {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .tag-blue {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+        
+        .tag-purple {
+            background: rgba(123, 47, 247, 0.2);
+            color: #a78bfa;
+        }
+        
+        .tag-pink {
+            background: rgba(255, 0, 107, 0.2);
+            color: #ff4d9f;
+        }
+        
+        .tag-green {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(123, 47, 247, 0.15) 0%, transparent 50%);
+        }
+        
+        .search-bar, .input-field {
+            background: rgba(30, 30, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: white;
+            width: 100%;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar:focus, .input-field:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: rgba(20, 20, 30, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #00d4ff;
+        }
+        
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #86efac;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:3001/api';
+
+        // API helper functions
+        const api = {
+            getNonprofits: async (filters = {}) => {
+                const params = new URLSearchParams(filters);
+                const response = await fetch(`${API_BASE_URL}/nonprofits?${params}`);
+                if (!response.ok) throw new Error('Failed to fetch nonprofits');
+                return response.json();
+            },
+            
+            getNonprofit: async (id) => {
+                const response = await fetch(`${API_BASE_URL}/nonprofits/${id}`);
+                if (!response.ok) throw new Error('Failed to fetch nonprofit');
+                return response.json();
+            },
+            
+            getCategories: async () => {
+                const response = await fetch(`${API_BASE_URL}/categories`);
+                if (!response.ok) throw new Error('Failed to fetch categories');
+                return response.json();
+            },
+            
+            register: async (userData) => {
+                const response = await fetch(`${API_BASE_URL}/students/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userData)
+                });
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Registration failed');
+                }
+                return response.json();
+            },
+            
+            login: async (credentials) => {
+                const response = await fetch(`${API_BASE_URL}/students/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(credentials)
+                });
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Login failed');
+                }
+                return response.json();
+            },
+            
+            applyToNonprofit: async (applicationData, token) => {
+                const response = await fetch(`${API_BASE_URL}/applications`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(applicationData)
+                });
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Application failed');
+                }
+                return response.json();
+            },
+            
+            getMyApplications: async (token) => {
+                const response = await fetch(`${API_BASE_URL}/applications/my-applications`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!response.ok) throw new Error('Failed to fetch applications');
+                return response.json();
+            },
+            
+            getStats: async () => {
+                const response = await fetch(`${API_BASE_URL}/stats`);
+                if (!response.ok) throw new Error('Failed to fetch stats');
+                return response.json();
+            }
+        };
+
+        const commitmentTypes = ["All", "One-time", "Ongoing"];
+        const locationTypes = ["All", "In-person", "Remote", "Hybrid"];
+
+        function App() {
+            const [currentView, setCurrentView] = useState('home');
+            const [selectedCategory, setSelectedCategory] = useState('All');
+            const [selectedCommitment, setSelectedCommitment] = useState('All');
+            const [selectedLocation, setSelectedLocation] = useState('All');
+            const [searchQuery, setSearchQuery] = useState('');
+            const [selectedNonprofit, setSelectedNonprofit] = useState(null);
+            const [user, setUser] = useState(null);
+            const [showAuthModal, setShowAuthModal] = useState(false);
+            const [authMode, setAuthMode] = useState('login');
+            const [stats, setStats] = useState(null);
+
+            useEffect(() => {
+                // Check for saved auth token
+                const token = localStorage.getItem('token');
+                const userData = localStorage.getItem('user');
+                if (token && userData) {
+                    setUser(JSON.parse(userData));
+                }
+                
+                // Fetch stats
+                api.getStats().then(setStats).catch(console.error);
+            }, []);
+
+            const logout = () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                setUser(null);
+                setCurrentView('home');
+            };
+
+            return (
+                <div>
+                    <Navbar 
+                        currentView={currentView} 
+                        setCurrentView={setCurrentView}
+                        user={user}
+                        logout={logout}
+                        setShowAuthModal={setShowAuthModal}
+                        setAuthMode={setAuthMode}
+                    />
+                    
+                    {currentView === 'home' && (
+                        <HomePage 
+                            setCurrentView={setCurrentView}
+                            stats={stats}
+                            setShowAuthModal={setShowAuthModal}
+                            setAuthMode={setAuthMode}
+                        />
+                    )}
+                    
+                    {currentView === 'browse' && (
+                        <BrowsePage 
+                            selectedCategory={selectedCategory}
+                            setSelectedCategory={setSelectedCategory}
+                            selectedCommitment={selectedCommitment}
+                            setSelectedCommitment={setSelectedCommitment}
+                            selectedLocation={selectedLocation}
+                            setSelectedLocation={setSelectedLocation}
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                            setSelectedNonprofit={setSelectedNonprofit}
+                            setCurrentView={setCurrentView}
+                        />
+                    )}
+                    
+                    {currentView === 'detail' && selectedNonprofit && (
+                        <DetailPage 
+                            nonprofit={selectedNonprofit}
+                            setCurrentView={setCurrentView}
+                            user={user}
+                            setShowAuthModal={setShowAuthModal}
+                            setAuthMode={setAuthMode}
+                        />
+                    )}
+                    
+                    {currentView === 'dashboard' && user && (
+                        <DashboardPage user={user} />
+                    )}
+                    
+                    {showAuthModal && (
+                        <AuthModal
+                            mode={authMode}
+                            setMode={setAuthMode}
+                            onClose={() => setShowAuthModal(false)}
+                            setUser={setUser}
+                        />
+                    )}
+                </div>
+            );
+        }
+
+        function Navbar({ currentView, setCurrentView, user, logout, setShowAuthModal, setAuthMode }) {
+            return (
+                <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/40 border-b border-white/10">
+                    <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                        <div 
+                            className="font-display text-2xl font-bold gradient-text cursor-pointer"
+                            onClick={() => setCurrentView('home')}
+                        >
+                            VolunteerNYC
+                        </div>
+                        <div className="flex items-center gap-6">
+                            <a onClick={() => setCurrentView('home')} className="nav-link cursor-pointer">Home</a>
+                            <a onClick={() => setCurrentView('browse')} className="nav-link cursor-pointer">Browse</a>
+                            {user ? (
+                                <>
+                                    <a onClick={() => setCurrentView('dashboard')} className="nav-link cursor-pointer">Dashboard</a>
+                                    <button onClick={logout} className="nav-link cursor-pointer">Logout</button>
+                                    <div className="text-sm text-gray-400">Hi, {user.firstName}!</div>
+                                </>
+                            ) : (
+                                <>
+                                    <button 
+                                        onClick={() => { setAuthMode('login'); setShowAuthModal(true); }}
+                                        className="nav-link cursor-pointer"
+                                    >
+                                        Login
+                                    </button>
+                                    <button 
+                                        onClick={() => { setAuthMode('register'); setShowAuthModal(true); }}
+                                        className="btn-primary"
+                                    >
+                                        Sign Up
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </nav>
+            );
+        }
+
+        function HomePage({ setCurrentView, stats, setShowAuthModal, setAuthMode }) {
+            return (
+                <div>
+                    {/* Hero Section */}
+                    <section className="hero-gradient min-h-screen flex items-center justify-center px-6 pt-20">
+                        <div className="max-w-6xl mx-auto text-center animate-slide-up">
+                            <div className="inline-block mb-4 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm font-medium">
+                                🎓 Built for NYC College Students
+                            </div>
+                            <h1 className="font-display text-6xl md:text-7xl font-bold mb-6 leading-tight">
+                                Find Your <span className="gradient-text">Impact</span><br />
+                                Make a <span className="gradient-text">Difference</span>
+                            </h1>
+                            <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                                Connect with real NYC nonprofits that match your schedule, interests, and career goals. 
+                                Get verified hours for your resume.
+                            </p>
+                            <div className="flex gap-4 justify-center">
+                                <button 
+                                    className="btn-primary text-lg"
+                                    onClick={() => setCurrentView('browse')}
+                                >
+                                    Browse Opportunities
+                                </button>
+                                <button 
+                                    className="px-8 py-3 border border-white/20 rounded-xl hover:bg-white/5 transition-all font-medium"
+                                    onClick={() => { setAuthMode('register'); setShowAuthModal(true); }}
+                                >
+                                    Get Started
+                                </button>
+                            </div>
+                            
+                            {/* Stats */}
+                            {stats && (
+                                <div className="grid grid-cols-3 gap-8 mt-20 max-w-3xl mx-auto">
+                                    <div>
+                                        <div className="stat-number gradient-text font-display">{stats.nonprofits}+</div>
+                                        <div className="text-gray-400 mt-2">NYC Nonprofits</div>
+                                    </div>
+                                    <div>
+                                        <div className="stat-number gradient-text font-display">{stats.students}+</div>
+                                        <div className="text-gray-400 mt-2">Students</div>
+                                    </div>
+                                    <div>
+                                        <div className="stat-number gradient-text font-display">{stats.applications}+</div>
+                                        <div className="text-gray-400 mt-2">Applications</div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </section>
+
+                    {/* Features Section */}
+                    <section className="py-24 px-6 bg-gradient-to-b from-transparent to-purple-950/10">
+                        <div className="max-w-6xl mx-auto">
+                            <h2 className="font-display text-4xl font-bold text-center mb-16">
+                                Why <span className="gradient-text">VolunteerNYC</span>?
+                            </h2>
+                            <div className="grid md:grid-cols-3 gap-8">
+                                <div className="glow-card p-8 rounded-2xl">
+                                    <div className="text-5xl mb-4">🎯</div>
+                                    <h3 className="font-display text-2xl font-bold mb-3">Real Nonprofits</h3>
+                                    <p className="text-gray-400">
+                                        Browse verified NYC organizations like Food Bank For New York City, 
+                                        New York Cares, and Big Brothers Big Sisters.
+                                    </p>
+                                </div>
+                                <div className="glow-card p-8 rounded-2xl">
+                                    <div className="text-5xl mb-4">✅</div>
+                                    <h3 className="font-display text-2xl font-bold mb-3">Track Your Impact</h3>
+                                    <p className="text-gray-400">
+                                        Apply directly, track your applications, and log volunteer hours 
+                                        for resumes and grad school applications.
+                                    </p>
+                                </div>
+                                <div className="glow-card p-8 rounded-2xl">
+                                    <div className="text-5xl mb-4">🚇</div>
+                                    <h3 className="font-display text-2xl font-bold mb-3">Student-Friendly</h3>
+                                    <p className="text-gray-400">
+                                        Filter by subway lines, time commitment, and cause. 
+                                        Find opportunities that fit your schedule.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* CTA Section */}
+                    <section className="py-24 px-6">
+                        <div className="max-w-4xl mx-auto text-center glow-card p-16 rounded-3xl">
+                            <h2 className="font-display text-4xl font-bold mb-6">
+                                Ready to Start Volunteering?
+                            </h2>
+                            <p className="text-xl text-gray-400 mb-8">
+                                Join NYC students making a difference with real organizations.
+                            </p>
+                            <button 
+                                className="btn-primary text-lg"
+                                onClick={() => setCurrentView('browse')}
+                            >
+                                Explore Opportunities
+                            </button>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="border-t border-white/10 py-12 px-6">
+                        <div className="max-w-6xl mx-auto text-center text-gray-500">
+                            <div className="font-display text-2xl font-bold gradient-text mb-4">VolunteerNYC</div>
+                            <p>Connecting NYC college students with real volunteer opportunities.</p>
+                            <p className="mt-4">© 2024 VolunteerNYC. Built to help NYC students make an impact.</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        function BrowsePage({ 
+            selectedCategory, 
+            setSelectedCategory,
+            selectedCommitment,
+            setSelectedCommitment,
+            selectedLocation,
+            setSelectedLocation,
+            searchQuery,
+            setSearchQuery,
+            setSelectedNonprofit,
+            setCurrentView
+        }) {
+            const [nonprofits, setNonprofits] = useState([]);
+            const [categories, setCategories] = useState(['All']);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            useEffect(() => {
+                api.getCategories()
+                    .then(cats => setCategories(['All', ...cats]))
+                    .catch(err => console.error('Error loading categories:', err));
+            }, []);
+
+            useEffect(() => {
+                setLoading(true);
+                setError(null);
+                
+                const filters = {};
+                if (selectedCategory !== 'All') filters.category = selectedCategory;
+                if (selectedCommitment !== 'All') filters.commitment = selectedCommitment;
+                if (selectedLocation !== 'All') filters.type = selectedLocation;
+                if (searchQuery) filters.search = searchQuery;
+
+                api.getNonprofits(filters)
+                    .then(data => {
+                        setNonprofits(data);
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        setError('Failed to load nonprofits. Make sure the backend server is running!');
+                        setLoading(false);
+                        console.error(err);
+                    });
+            }, [selectedCategory, selectedCommitment, selectedLocation, searchQuery]);
+
+            const handleNonprofitClick = async (np) => {
+                try {
+                    const fullData = await api.getNonprofit(np.id);
+                    setSelectedNonprofit(fullData);
+                    setCurrentView('detail');
+                } catch (err) {
+                    console.error('Error loading nonprofit:', err);
+                }
+            };
+
+            return (
+                <div className="min-h-screen pt-24 px-6 pb-16">
+                    <div className="max-w-7xl mx-auto">
+                        <h1 className="font-display text-5xl font-bold mb-4">
+                            Browse <span className="gradient-text">Opportunities</span>
+                        </h1>
+                        <p className="text-xl text-gray-400 mb-10">
+                            {loading ? 'Loading...' : `${nonprofits.length} real NYC nonprofits`}
+                        </p>
+
+                        {error && (
+                            <div className="error mb-8">
+                                {error}
+                                <div className="mt-2 text-sm">
+                                    Run: <code className="bg-black/50 px-2 py-1 rounded">cd backend && npm install && npm run init-db && npm start</code>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Search */}
+                        <input 
+                            type="text"
+                            placeholder="Search nonprofits, causes, or keywords..."
+                            className="search-bar mb-8"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+
+                        {/* Filters */}
+                        <div className="space-y-6 mb-12">
+                            <div>
+                                <h3 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">Category</h3>
+                                <div className="flex flex-wrap gap-3">
+                                    {categories.map(cat => (
+                                        <button
+                                            key={cat}
+                                            className={`filter-chip ${selectedCategory === cat ? 'active' : ''}`}
+                                            onClick={() => setSelectedCategory(cat)}
+                                        >
+                                            {cat}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">Commitment</h3>
+                                <div className="flex flex-wrap gap-3">
+                                    {commitmentTypes.map(type => (
+                                        <button
+                                            key={type}
+                                            className={`filter-chip ${selectedCommitment === type ? 'active' : ''}`}
+                                            onClick={() => setSelectedCommitment(type)}
+                                        >
+                                            {type}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">Location Type</h3>
+                                <div className="flex flex-wrap gap-3">
+                                    {locationTypes.map(type => (
+                                        <button
+                                            key={type}
+                                            className={`filter-chip ${selectedLocation === type ? 'active' : ''}`}
+                                            onClick={() => setSelectedLocation(type)}
+                                        >
+                                            {type}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Results */}
+                        {loading ? (
+                            <div className="loading">
+                                <div className="text-6xl mb-4">⏳</div>
+                                <p>Loading nonprofits...</p>
+                            </div>
+                        ) : (
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {nonprofits.map(np => (
+                                    <div 
+                                        key={np.id} 
+                                        className="glow-card p-6 rounded-2xl cursor-pointer"
+                                        onClick={() => handleNonprofitClick(np)}
+                                    >
+                                        <div className="flex items-start justify-between mb-4">
+                                            <div className="text-4xl">{np.image}</div>
+                                            <span className={`tag ${
+                                                np.commitment === 'One-time' ? 'tag-blue' : 'tag-purple'
+                                            }`}>
+                                                {np.commitment}
+                                            </span>
+                                        </div>
+                                        <h3 className="font-display text-xl font-bold mb-2">{np.name}</h3>
+                                        <p className="text-sm text-cyan-400 mb-3">{np.category} • {np.location}</p>
+                                        <p className="text-gray-400 text-sm mb-4 line-clamp-2">{np.description}</p>
+                                        {np.tags && (
+                                            <div className="flex flex-wrap gap-2 mb-4">
+                                                {np.tags.split(',').slice(0, 2).map((tag, idx) => (
+                                                    <span key={idx} className="tag tag-green text-xs">
+                                                        {tag.trim()}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+                                        <div className="flex items-center justify-between text-sm text-gray-500">
+                                            <span>🚇 {np.subway}</span>
+                                            <span>⏱️ {np.hours}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {!loading && nonprofits.length === 0 && (
+                            <div className="text-center py-20">
+                                <div className="text-6xl mb-4">🔍</div>
+                                <h3 className="font-display text-2xl font-bold mb-2">No matches found</h3>
+                                <p className="text-gray-400">Try adjusting your filters or search query</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        function DetailPage({ nonprofit, setCurrentView, user, setShowAuthModal, setAuthMode }) {
+            const [applying, setApplying] = useState(false);
+            const [applicationMessage, setApplicationMessage] = useState('');
+            const [success, setSuccess] = useState(false);
+            const [error, setError] = useState(null);
+
+            const handleApply = async () => {
+                if (!user) {
+                    setAuthMode('register');
+                    setShowAuthModal(true);
+                    return;
+                }
+
+                setApplying(true);
+                setError(null);
+
+                try {
+                    const token = localStorage.getItem('token');
+                    await api.applyToNonprofit(
+                        { nonprofitId: nonprofit.id, message: applicationMessage },
+                        token
+                    );
+                    setSuccess(true);
+                    setTimeout(() => {
+                        setCurrentView('dashboard');
+                    }, 2000);
+                } catch (err) {
+                    setError(err.message);
+                } finally {
+                    setApplying(false);
+                }
+            };
+
+            const skills = nonprofit.skills ? nonprofit.skills.split(',').map(s => s.trim()) : [];
+            const tags = nonprofit.tags ? nonprofit.tags.split(',').map(t => t.trim()) : [];
+
+            return (
+                <div className="min-h-screen pt-24 px-6 pb-16">
+                    <div className="max-w-4xl mx-auto">
+                        <button 
+                            onClick={() => setCurrentView('browse')}
+                            className="flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors"
+                        >
+                            ← Back to Browse
+                        </button>
+
+                        {success && (
+                            <div className="success">
+                                ✅ Application submitted successfully! Redirecting to dashboard...
+                            </div>
+                        )}
+
+                        {error && (
+                            <div className="error">
+                                ⚠️ {error}
+                            </div>
+                        )}
+
+                        <div className="glow-card p-10 rounded-3xl">
+                            <div className="flex items-start gap-6 mb-8">
+                                <div className="text-6xl">{nonprofit.image}</div>
+                                <div className="flex-1">
+                                    <h1 className="font-display text-4xl font-bold mb-3">{nonprofit.name}</h1>
+                                    <div className="flex flex-wrap gap-3 mb-4">
+                                        <span className="tag tag-blue">{nonprofit.category}</span>
+                                        <span className="tag tag-purple">{nonprofit.commitment}</span>
+                                        <span className="tag tag-pink">{nonprofit.type}</span>
+                                    </div>
+                                    <div className="flex gap-6 text-gray-400 mb-4">
+                                        <span>📍 {nonprofit.location}</span>
+                                        <span>🚇 {nonprofit.subway}</span>
+                                        <span>⏱️ {nonprofit.hours}</span>
+                                    </div>
+                                    {nonprofit.website && (
+                                        <a 
+                                            href={nonprofit.website} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="text-cyan-400 hover:text-cyan-300 text-sm"
+                                        >
+                                            🔗 Visit Website
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="space-y-8">
+                                <div>
+                                    <h2 className="font-display text-2xl font-bold mb-3">About This Opportunity</h2>
+                                    <p className="text-gray-300 text-lg leading-relaxed mb-4">{nonprofit.description}</p>
+                                    {nonprofit.full_description && (
+                                        <p className="text-gray-400 leading-relaxed">{nonprofit.full_description}</p>
+                                    )}
+                                </div>
+
+                                {skills.length > 0 && (
+                                    <div>
+                                        <h2 className="font-display text-2xl font-bold mb-3">Skills You'll Build</h2>
+                                        <div className="flex flex-wrap gap-2">
+                                            {skills.map((skill, idx) => (
+                                                <span key={idx} className="tag tag-green">{skill}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {tags.length > 0 && (
+                                    <div>
+                                        <h2 className="font-display text-2xl font-bold mb-3">Perfect For</h2>
+                                        <div className="flex flex-wrap gap-2">
+                                            {tags.map((tag, idx) => (
+                                                <span key={idx} className="tag tag-blue">{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="pt-8 border-t border-white/10">
+                                    <h3 className="font-display text-xl font-bold mb-4">Why do you want to volunteer here?</h3>
+                                    <textarea
+                                        className="input-field mb-4 min-h-[120px]"
+                                        placeholder="Tell them about your interests and why you'd be a great fit..."
+                                        value={applicationMessage}
+                                        onChange={(e) => setApplicationMessage(e.target.value)}
+                                    />
+                                    <button 
+                                        className="btn-primary w-full text-lg py-4"
+                                        onClick={handleApply}
+                                        disabled={applying || success}
+                                    >
+                                        {applying ? 'Submitting...' : success ? 'Applied! ✓' : user ? 'Apply Now' : 'Sign Up to Apply'}
+                                    </button>
+                                    {nonprofit.contact_email && (
+                                        <p className="text-center text-gray-500 text-sm mt-4">
+                                            Contact: {nonprofit.contact_email}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function DashboardPage({ user }) {
+            const [applications, setApplications] = useState([]);
+            const [loading, setLoading] = useState(true);
+
+            useEffect(() => {
+                const token = localStorage.getItem('token');
+                api.getMyApplications(token)
+                    .then(data => {
+                        setApplications(data);
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        console.error('Error loading applications:', err);
+                        setLoading(false);
+                    });
+            }, []);
+
+            const totalHours = applications.reduce((sum, app) => sum + (app.hours_completed || 0), 0);
+
+            return (
+                <div className="min-h-screen pt-24 px-6 pb-16">
+                    <div className="max-w-6xl mx-auto">
+                        <h1 className="font-display text-5xl font-bold mb-4">
+                            Welcome back, <span className="gradient-text">{user.firstName}</span>!
+                        </h1>
+                        <p className="text-xl text-gray-400 mb-10">Track your volunteer journey</p>
+
+                        {/* Stats Cards */}
+                        <div className="grid md:grid-cols-3 gap-6 mb-12">
+                            <div className="glow-card p-6 rounded-2xl">
+                                <div className="text-4xl mb-2">📝</div>
+                                <div className="stat-number text-3xl gradient-text font-display">{applications.length}</div>
+                                <div className="text-gray-400 mt-1">Applications</div>
+                            </div>
+                            <div className="glow-card p-6 rounded-2xl">
+                                <div className="text-4xl mb-2">⏱️</div>
+                                <div className="stat-number text-3xl gradient-text font-display">{totalHours}</div>
+                                <div className="text-gray-400 mt-1">Hours Volunteered</div>
+                            </div>
+                            <div className="glow-card p-6 rounded-2xl">
+                                <div className="text-4xl mb-2">✅</div>
+                                <div className="stat-number text-3xl gradient-text font-display">
+                                    {applications.filter(a => a.status === 'accepted').length}
+                                </div>
+                                <div className="text-gray-400 mt-1">Accepted</div>
+                            </div>
+                        </div>
+
+                        {/* Applications List */}
+                        <h2 className="font-display text-3xl font-bold mb-6">Your Applications</h2>
+                        
+                        {loading ? (
+                            <div className="loading">Loading your applications...</div>
+                        ) : applications.length === 0 ? (
+                            <div className="glow-card p-12 rounded-2xl text-center">
+                                <div className="text-6xl mb-4">📋</div>
+                                <h3 className="font-display text-2xl font-bold mb-2">No applications yet</h3>
+                                <p className="text-gray-400 mb-6">Start browsing opportunities to make your first application!</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-4">
+                                {applications.map(app => (
+                                    <div key={app.id} className="glow-card p-6 rounded-2xl">
+                                        <div className="flex items-start justify-between">
+                                            <div className="flex gap-4">
+                                                <div className="text-4xl">{app.image}</div>
+                                                <div>
+                                                    <h3 className="font-display text-xl font-bold mb-1">{app.nonprofit_name}</h3>
+                                                    <p className="text-sm text-cyan-400 mb-2">{app.category} • {app.location}</p>
+                                                    {app.message && (
+                                                        <p className="text-sm text-gray-400 italic">"{app.message}"</p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <span className={`tag ${
+                                                    app.status === 'accepted' ? 'tag-green' :
+                                                    app.status === 'rejected' ? 'tag-pink' :
+                                                    'tag-blue'
+                                                }`}>
+                                                    {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                                                </span>
+                                                <div className="text-sm text-gray-500 mt-2">
+                                                    Applied {new Date(app.created_at).toLocaleDateString()}
+                                                </div>
+                                                {app.hours_completed > 0 && (
+                                                    <div className="text-sm text-green-400 mt-1">
+                                                        {app.hours_completed} hours completed
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        function AuthModal({ mode, setMode, onClose, setUser }) {
+            const [formData, setFormData] = useState({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                school: '',
+                major: '',
+                graduationYear: new Date().getFullYear() + 4
+            });
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setLoading(true);
+                setError(null);
+
+                try {
+                    let result;
+                    if (mode === 'register') {
+                        result = await api.register(formData);
+                    } else {
+                        result = await api.login({
+                            email: formData.email,
+                            password: formData.password
+                        });
+                    }
+
+                    // Save token and user data
+                    localStorage.setItem('token', result.token);
+                    localStorage.setItem('user', JSON.stringify(result.student));
+                    setUser(result.student);
+                    onClose();
+                } catch (err) {
+                    setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="modal" onClick={onClose}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h2 className="font-display text-3xl font-bold mb-6">
+                            {mode === 'register' ? 'Create Account' : 'Welcome Back'}
+                        </h2>
+
+                        {error && <div className="error">{error}</div>}
+
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            {mode === 'register' && (
+                                <>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <input
+                                            type="text"
+                                            placeholder="First Name"
+                                            className="input-field"
+                                            value={formData.firstName}
+                                            onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            placeholder="Last Name"
+                                            className="input-field"
+                                            value={formData.lastName}
+                                            onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                                            required
+                                        />
+                                    </div>
+                                </>
+                            )}
+
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                className="input-field"
+                                value={formData.email}
+                                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                required
+                            />
+
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                className="input-field"
+                                value={formData.password}
+                                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                required
+                            />
+
+                            {mode === 'register' && (
+                                <>
+                                    <input
+                                        type="text"
+                                        placeholder="School (e.g., NYU, Columbia)"
+                                        className="input-field"
+                                        value={formData.school}
+                                        onChange={(e) => setFormData({...formData, school: e.target.value})}
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="Major"
+                                        className="input-field"
+                                        value={formData.major}
+                                        onChange={(e) => setFormData({...formData, major: e.target.value})}
+                                    />
+                                    <input
+                                        type="number"
+                                        placeholder="Expected Graduation Year"
+                                        className="input-field"
+                                        value={formData.graduationYear}
+                                        onChange={(e) => setFormData({...formData, graduationYear: parseInt(e.target.value)})}
+                                    />
+                                </>
+                            )}
+
+                            <button 
+                                type="submit" 
+                                className="btn-primary w-full py-3"
+                                disabled={loading}
+                            >
+                                {loading ? 'Please wait...' : mode === 'register' ? 'Create Account' : 'Login'}
+                            </button>
+                        </form>
+
+                        <div className="text-center mt-6 text-gray-400">
+                            {mode === 'register' ? (
+                                <>
+                                    Already have an account?{' '}
+                                    <button 
+                                        onClick={() => setMode('login')}
+                                        className="text-cyan-400 hover:text-cyan-300"
+                                    >
+                                        Login
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    Don't have an account?{' '}
+                                    <button 
+                                        onClick={() => setMode('register')}
+                                        className="text-cyan-400 hover:text-cyan-300"
+                                    >
+                                        Sign Up
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
