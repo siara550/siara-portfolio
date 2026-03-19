@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Siara Chowdhury</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f0e8; --fg: #1c1917; --fg3: #a8a29e;
+      --c-lavender: #ede9fe; --c-peach: #fde8d8; --c-mint: #d1fae5;
+      --c-sky: #dbeafe; --c-butter: #fef9c3; --c-rose: #fce7f3;
+      --c-sage: #dcfce7; --c-lilac: #f3e8ff; --c-apricot: #fff7ed;
+      --c-powder: #e0f2fe; --c-pink: #fdf2f8;
+      --radius: 20px; --gap: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--fg); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; overflow-x: hidden; cursor: none; }
+    #cursor { position: fixed; width: 14px; height: 14px; border-radius: 50%; background: rgba(120,80,200,0.35); pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s, background 0.2s; mix-blend-mode: multiply; }
+    #cursor-ring { position: fixed; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(120,80,200,0.25); pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; }
+    .wrapper { max-width: 1060px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; opacity: 0; animation: fadeDown 0.6s ease forwards; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; letter-spacing: -0.5px; color: var(--fg); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 400; color: var(--fg3); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--fg); }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 108px; gap: var(--gap); }
+    .card { border-radius: var(--radius); padding: 1.25rem 1.4rem; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; cursor: none; opacity: 0; transform: translateY(20px); transition: transform 0.25s cubic-bezier(.22,.68,0,1.2), box-shadow 0.25s, opacity 0.5s ease; }
+    .card:hover { transform: translateY(-5px) scale(1.013); box-shadow: 0 14px 40px rgba(0,0,0,0.1); z-index: 2; }
+    .lbl { font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--fg3); font-weight: 500; }
+    .c-intro     { grid-column: span 7; grid-row: span 3; background: var(--c-lavender); }
+    .c-status    { grid-column: span 5; grid-row: span 1; background: var(--c-peach); }
+    .c-school    { grid-column: span 5; grid-row: span 2; background: var(--c-mint); }
+    .c-humor     { grid-column: span 7; grid-row: span 2; background: var(--c-butter); }
+    .c-fellows   { grid-column: span 5; grid-row: span 3; background: var(--c-sky); }
+    .c-writing   { grid-column: span 7; grid-row: span 2; background: var(--c-powder); }
+    .c-exp       { grid-column: span 5; grid-row: span 3; background: var(--c-rose); }
+    .c-citysense { grid-column: span 3; grid-row: span 2; background: var(--c-sage); }
+    .c-herwave   { grid-column: span 4; grid-row: span 2; background: var(--c-lilac); }
+    .c-research  { grid-column: span 5; grid-row: span 3; background: var(--c-pink); }
+    .c-lgr       { grid-column: span 4; grid-row: span 2; background: var(--c-apricot); }
+    .c-currently { grid-column: span 4; grid-row: span 2; background: var(--c-butter); }
+    .c-facts     { grid-column: span 4; grid-row: span 2; background: var(--c-peach); }
+    .c-contact   { grid-column: span 8; grid-row: span 2; background: var(--c-mint); }
+    .intro-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; font-weight: 500; opacity: 0.6; }
+    .intro-title { font-family: 'Playfair Display', serif; font-size: clamp(26px, 3.2vw, 40px); font-weight: 400; line-height: 1.12; letter-spacing: -1px; color: #3b0764; animation: fl 6s ease-in-out infinite; }
+    .intro-title em { font-style: italic; opacity: 0.55; }
+    @keyframes fl { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    .intro-bio { font-size: 12.5px; line-height: 1.7; color: #5b21b6; opacity: 0.75; max-width: 360px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.5rem; }
+    .tag { font-size: 10px; padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,0.55); color: #5b21b6; letter-spacing: 0.03em; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: inline-block; margin-right: 7px; animation: p 2.2s ease-in-out infinite; }
+    @keyframes p { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+    .st-main { font-size: 13px; font-weight: 500; color: #7c2d12; display: flex; align-items: center; }
+    .st-sub { font-size: 11px; color: #a8a29e; margin-top: 3px; }
+    .school-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 400; color: #064e3b; letter-spacing: -0.4px; line-height: 1.25; }
+    .school-deg { font-size: 11px; color: #059669; opacity: 0.85; line-height: 1.5; margin-top: 4px; }
+    .school-yr { font-size: 10px; color: #6ee7b7; margin-top: 4px; letter-spacing: 0.04em; }
+    .pnum { font-size: 10px; letter-spacing: 0.1em; opacity: 0.4; font-weight: 500; }
+    .pname { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; letter-spacing: -0.3px; line-height: 1.2; }
+    .pdesc { font-size: 11.5px; line-height: 1.55; opacity: 0.65; }
+    .stacks { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.3rem; }
+    .stk { font-size: 10px; padding: 3px 9px; border-radius: 100px; background: rgba(255,255,255,0.55); letter-spacing: 0.03em; }
+    .wip { font-size: 9px; padding: 2px 8px; border-radius: 100px; background: rgba(255,255,255,0.7); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; color: #7c3aed; display: inline-block; margin-bottom: 3px; }
+    .ft { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 400; color: #1e3a5f; margin-bottom: 0.5rem; letter-spacing: -0.3px; }
+    .fi { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid rgba(0,0,0,0.07); }
+    .fi:last-child { border-bottom: none; }
+    .fdot { width: 5px; height: 5px; border-radius: 50%; background: #3b82f6; flex-shrink: 0; margin-top: 4px; }
+    .fn { font-weight: 500; color: #1e3a5f; font-size: 12px; }
+    .fo { font-size: 10.5px; color: #64748b; }
+    .wh { display: flex; justify-content: space-between; align-items: flex-start; }
+    .wl { font-size: 10px; color: var(--fg3); text-decoration: none; }
+    .wl:hover { color: var(--fg); }
+    .wposts { display: flex; flex-direction: column; justify-content: center; flex: 1; gap: 0; }
+    .wp { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 0.5px solid rgba(0,0,0,0.07); text-decoration: none; transition: opacity 0.15s; }
+    .wp:last-child { border-bottom: none; }
+    .wp:hover { opacity: 0.65; }
+    .wpt { font-family: 'Playfair Display', serif; font-size: 12.5px; font-weight: 400; color: #0c4a6e; letter-spacing: -0.2px; line-height: 1.3; }
+    .wpd { font-size: 10px; color: #7dd3fc; white-space: nowrap; margin-left: 0.75rem; flex-shrink: 0; }
+    .expl { display: flex; flex-direction: column; justify-content: center; flex: 1; gap: 9px; }
+    .er { font-size: 12px; font-weight: 500; color: #831843; }
+    .ep { font-size: 11px; color: #f9a8d4; margin-top: 1px; }
+    .ey { font-size: 10px; color: #fda4af; margin-top: 1px; }
+    .res-title { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 400; color: #831843; line-height: 1.35; letter-spacing: -0.2px; }
+    .res-org { font-size: 10.5px; color: #f472b6; margin-top: 3px; }
+    .res-desc { font-size: 11px; line-height: 1.6; color: #9d174d; opacity: 0.75; margin-top: 0.5rem; }
+    .res-stacks { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.5rem; }
+    .res-stk { font-size: 9.5px; padding: 2px 8px; border-radius: 100px; background: rgba(255,255,255,0.55); color: #9d174d; }
+    .lgrt { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 400; color: #7c2d12; letter-spacing: -0.3px; }
+    .lgrd { font-size: 11.5px; color: #92400e; opacity: 0.75; line-height: 1.6; margin-top: 4px; }
+    .cl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #92400e; opacity: 0.55; font-weight: 500; }
+    .ci { display: flex; flex-direction: column; gap: 2px; padding: 7px 0; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+    .ci:last-child { border-bottom: none; }
+    .ct { font-size: 10px; opacity: 0.45; letter-spacing: 0.07em; text-transform: uppercase; }
+    .cv { font-size: 12.5px; font-weight: 400; color: #78350f; }
+    .fci { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 0.5px solid rgba(0,0,0,0.06); font-size: 12px; color: #7c2d12; line-height: 1.5; }
+    .fci:last-child { border-bottom: none; }
+    .fcn { font-size: 10px; opacity: 0.35; font-weight: 500; flex-shrink: 0; margin-top: 2px; }
+    .ctt { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 400; color: #064e3b; letter-spacing: -0.3px; }
+    .cls { display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px 20px; justify-content: flex-start; align-content: center; flex: 1; }
+    .cl-a { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #065f46; text-decoration: none; font-weight: 400; transition: opacity 0.15s, transform 0.15s; min-width: 200px; }
+    .cl-a:hover { opacity: 0.7; transform: translateX(3px); }
+    .cl-ic { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.6); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: #047857; flex-shrink: 0; }
+    footer { margin-top: 2rem; display: flex; justify-content: space-between; font-size: 11px; color: var(--fg3); opacity: 0; animation: fadeUp 0.6s ease 1.2s forwards; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(10px); }  to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div class="wrapper">
+  <nav>
+    <a class="logo" href="#">siara.</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://www.linkedin.com/in/siara-chowdhury/" target="_blank">Resume ↗</a></li>
+    </ul>
+  </nav>
+
+  <div class="grid">
+
+    <div class="card c-intro">
+      <div class="intro-label">Siara · New York City</div>
+      <div class="intro-title">CS major.<br><em>Also a humanist.</em><br>Builder of things.</div>
+      <div>
+        <div class="intro-bio">Senior at Barnard College of Columbia University, double majoring in CS and Human Rights. I build things at the intersection of tech and people: AI tools, apps, community programs, and whatever idea I can't stop thinking about.</div>
+        <div class="tags">
+          <span class="tag">Full-stack dev</span>
+          <span class="tag">AI and data</span>
+          <span class="tag">Human Rights</span>
+          <span class="tag">New York City</span>
+          <span class="tag">May 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card c-status">
+      <div class="lbl">Right now</div>
+      <div class="st-main"><span class="dot"></span>Open to full-time roles · Summer 2026</div>
+      <div class="st-sub">NYC-based · open to hybrid · SWE and tech roles</div>
+    </div>
+
+    <div class="card c-school">
+      <div class="lbl">Education</div>
+      <div>
+        <div class="school-name">Barnard College of<br>Columbia University</div>
+        <div class="school-deg">B.A. Computer Science and Human Rights<br>Minor in Economics</div>
+        <div class="school-yr">Graduating May 2026</div>
+      </div>
+    </div>
+
+    <div class="card c-humor" id="projects">
+      <div class="pnum">01</div>
+      <div class="pname">The Humor Project</div>
+      <div class="pdesc">The world's first funny AI. Caption generation and voting with a dark editorial vibe.</div>
+      <div class="stacks">
+        <span class="stk">Next.js</span><span class="stk">Supabase</span><span class="stk">Tailwind</span>
+      </div>
+    </div>
+
+    <div class="card c-fellows">
+      <div class="lbl">Fellowships</div>
+      <div class="ft">Recognized and<br>selected.</div>
+      <div>
+        <div class="fi"><div class="fdot"></div><div><div class="fn">IAC Fellow</div><div class="fo">Secured $15k grant for NYC nonprofit</div></div></div>
+        <div class="fi"><div class="fdot"></div><div><div class="fn">Break Through Tech AI</div><div class="fo">Cornell Tech · 3,000+ applicants</div></div></div>
+        <div class="fi"><div class="fdot"></div><div><div class="fn">Google SWE Fellowship</div><div class="fo">Software Engineering</div></div></div>
+      </div>
+    </div>
+
+    <div class="card c-writing" id="writing">
+      <div class="wh">
+        <div class="lbl">Writing · Substack</div>
+        <a class="wl" href="https://substack.com/@thoughtswithsiaaa" target="_blank">Read all →</a>
+      </div>
+      <div class="wposts">
+        <a class="wp" href="https://substack.com/@thoughtswithsiaaa" target="_blank">
+          <span class="wpt">What I learned building an AI app from scratch</span><span class="wpd">Coming soon</span>
+        </a>
+        <a class="wp" href="https://substack.com/@thoughtswithsiaaa" target="_blank">
+          <span class="wpt">On being a CS major who cares about human rights</span><span class="wpd">Coming soon</span>
+        </a>
+        <a class="wp" href="https://substack.com/@thoughtswithsiaaa" target="_blank">
+          <span class="wpt">The case for tech careers in the nonprofit sector</span><span class="wpd">Coming soon</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card c-exp">
+      <div class="lbl">Experience</div>
+      <div class="expl">
+        <div><div class="er">AI Strategy Analyst</div><div class="ep">MetLife</div><div class="ey">2025 · Present</div></div>
+        <div><div class="er">ML Fellow</div><div class="ep">Break Through Tech / Cornell Tech</div><div class="ey">2025 · Present</div></div>
+        <div><div class="er">Technical Consultant</div><div class="ep">Hello Insight</div><div class="ey">2024 · Present</div></div>
+        <div><div class="er">Systems Analyst Intern</div><div class="ep">Care.com</div><div class="ey">2024</div></div>
+        <div><div class="er">Computational Research Intern</div><div class="ep">Columbia Irving Medical Center</div><div class="ey">2023</div></div>
+        <div><div class="er">Data Analyst</div><div class="ep">Intergenerational Change Initiative</div><div class="ey">2022 to 2024</div></div>
+      </div>
+    </div>
+
+    <div class="card c-citysense">
+      <div class="pnum">02</div>
+      <div class="pname">CitySense</div>
+      <div class="pdesc">ML-powered urban sensing project.</div>
+      <div class="stacks">
+        <span class="stk">Python</span><span class="stk">ML</span><span class="stk">Geospatial</span>
+      </div>
+    </div>
+
+    <div class="card c-herwave">
+      <span class="wip">In progress</span>
+      <div class="pnum">03</div>
+      <div class="pname">Herwave</div>
+      <div class="pdesc">Cycle-syncing app for women's health. Bold design, real utility.</div>
+      <div class="stacks">
+        <span class="stk">Next.js</span><span class="stk">Claude API</span>
+      </div>
+    </div>
+
+    <div class="card c-research">
+      <div class="lbl">Research · Columbia University</div>
+      <div class="res-title">Striatal Modulation of a Cholinergic Output Pathway to the Cortex During Instrumental Learning</div>
+      <div class="res-org">Columbia University Irving Medical Center · 2023</div>
+      <div class="res-desc">Studied cognitive symptoms in schizophrenia, specifically how cholinergic disruption and striatal lesions impair reversal learning. Published SRI poster.</div>
+      <div class="res-stacks">
+        <span class="res-stk">MATLAB</span><span class="res-stk">Neuroscience</span><span class="res-stk">Statistical Analysis</span><span class="res-stk">Data Analysis</span>
+      </div>
+    </div>
+
+    <div class="card c-lgr">
+      <div style="font-size:26px;line-height:1;margin-bottom:4px;">🤝</div>
+      <div class="lgrt">Let's Get Ready</div>
+      <div class="lgrd">College coach supporting high school seniors through applications, financial aid appeals, and scholarship strategies.</div>
+    </div>
+
+    <div class="card c-currently">
+      <div class="cl">Currently</div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;">
+        <div class="ci"><div class="ct">Keeping up with</div><div class="cv">AI and the latest in tech</div></div>
+        <div class="ci"><div class="ct">Exploring</div><div class="cv">NYC restaurant hopping 🍜</div></div>
+        <div class="ci"><div class="ct">Building</div><div class="cv">This website, lol</div></div>
+      </div>
+    </div>
+
+    <div class="card c-facts">
+      <div class="lbl">Fun facts</div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;">
+        <div class="fci"><div class="fcn">01</div><div>Born on Halloween 🎃</div></div>
+        <div class="fci"><div class="fcn">02</div><div>Always chasing a new cuisine in NYC</div></div>
+        <div class="fci"><div class="fcn">03</div><div>Started cooking at 13, still at it 🍳</div></div>
+      </div>
+    </div>
+
+    <div class="card c-contact" id="contact">
+      <div class="ctt">Say hi.</div>
+      <div class="cls">
+        <a class="cl-a" href="https://github.com/siara550" target="_blank"><div class="cl-ic">gh</div>github.com/siara550</a>
+        <a class="cl-a" href="https://www.linkedin.com/in/siara-chowdhury/" target="_blank"><div class="cl-ic">in</div>linkedin · siara-chowdhury</a>
+        <a class="cl-a" href="https://substack.com/@thoughtswithsiaaa" target="_blank"><div class="cl-ic">✍</div>Substack</a>
+        <a class="cl-a" href="mailto:siarachowdhury550@gmail.com"><div class="cl-ic">@</div>siarachowdhury550@gmail.com</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Made with love in NYC 🧡</span>
+    <span>Siara Chowdhury · 2026</span>
+  </footer>
+</div>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, .card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '22px';
+      cursor.style.height = '22px';
+      cursor.style.background = 'rgba(120,80,200,0.5)';
+      ring.style.width = '50px';
+      ring.style.height = '50px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '14px';
+      cursor.style.height = '14px';
+      cursor.style.background = 'rgba(120,80,200,0.35)';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const i = cards.indexOf(entry.target);
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  cards.forEach(c => observer.observe(c));
+</script>
+</body>
+</html>
