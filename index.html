@@ -19,8 +19,9 @@
     }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--fg); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; overflow-x: hidden; cursor: none; }
-    #cursor { position: fixed; width: 14px; height: 14px; border-radius: 50%; background: rgba(120,80,200,0.35); pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s, background 0.2s; mix-blend-mode: multiply; }
-    #cursor-ring { position: fixed; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(120,80,200,0.25); pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; }
+    #cursor { position: fixed; width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; pointer-events: none; z-index: 99999; top: 0; left: 0; transition: width 0.15s, height 0.15s; }
+    #cursor-ring { position: fixed; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid #7c3aed; opacity: 0.4; pointer-events: none; z-index: 99998; top: 0; left: 0; transition: width 0.15s, height 0.15s; }
+    * { cursor: none !important; }
     .wrapper { max-width: 1060px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
     nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; opacity: 0; animation: fadeDown 0.6s ease forwards; }
     .logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; letter-spacing: -0.5px; color: var(--fg); text-decoration: none; }
@@ -34,17 +35,20 @@
     .c-intro     { grid-column: span 7; grid-row: span 3; background: var(--c-lavender); }
     .c-status    { grid-column: span 5; grid-row: span 1; background: var(--c-peach); }
     .c-school    { grid-column: span 5; grid-row: span 2; background: var(--c-mint); }
-    .c-humor     { grid-column: span 7; grid-row: span 2; background: var(--c-butter); }
+    /* ROW 4-6: Fellowships + Projects */
     .c-fellows   { grid-column: span 5; grid-row: span 3; background: var(--c-sky); }
-    .c-writing   { grid-column: span 7; grid-row: span 2; background: var(--c-powder); }
+    .c-humor     { grid-column: span 7; grid-row: span 2; background: var(--c-butter); }
+    .c-citysense { grid-column: span 4; grid-row: span 2; background: var(--c-sage); }
+    .c-herwave   { grid-column: span 3; grid-row: span 2; background: var(--c-lilac); }
+    /* ROW 7-9: Experience(5) + Writing(7) top, then Research(7)+LGR(5) fill remaining */
     .c-exp       { grid-column: span 5; grid-row: span 3; background: var(--c-rose); }
-    .c-citysense { grid-column: span 3; grid-row: span 2; background: var(--c-sage); }
-    .c-herwave   { grid-column: span 4; grid-row: span 2; background: var(--c-lilac); }
-    .c-research  { grid-column: span 5; grid-row: span 3; background: var(--c-pink); }
-    .c-lgr       { grid-column: span 4; grid-row: span 2; background: var(--c-apricot); }
-    .c-currently { grid-column: span 4; grid-row: span 2; background: var(--c-butter); }
-    .c-facts     { grid-column: span 4; grid-row: span 2; background: var(--c-peach); }
-    .c-contact   { grid-column: span 8; grid-row: span 2; background: var(--c-mint); }
+    .c-writing   { grid-column: span 7; grid-row: span 2; background: var(--c-powder); }
+    .c-research  { grid-column: span 7; grid-row: span 3; background: var(--c-pink); }
+    .c-lgr       { grid-column: span 5; grid-row: span 3; background: var(--c-apricot); }
+    /* ROW 10-11: Currently + Facts split full 12 cols */
+    .c-currently { grid-column: 1 / span 6; grid-row: span 2; background: var(--c-butter); }
+    .c-facts     { grid-column: 7 / span 6; grid-row: span 2; background: var(--c-peach); }
+    .c-contact   { grid-column: 1 / span 12; grid-row: span 2; background: var(--c-mint); }
     .intro-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #7c3aed; font-weight: 500; opacity: 0.6; }
     .intro-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 400; line-height: 1.12; letter-spacing: -1px; color: #3b0764; animation: fl 6s ease-in-out infinite; }
     .intro-title em { font-style: italic; opacity: 0.55; }
@@ -125,6 +129,7 @@
 
   <div class="grid">
 
+    <!-- ROW 1-3: Intro + Status + School -->
     <div class="card c-intro">
       <div class="intro-label">Siara · New York City</div>
       <div class="intro-title">CS major.<br><em>Also a humanist.</em><br>Builder of things.</div>
@@ -155,6 +160,17 @@
       </div>
     </div>
 
+    <!-- ROW 4-6: Fellowships + Projects -->
+    <div class="card c-fellows">
+      <div class="lbl">Fellowships</div>
+      <div class="ft">Recognized and<br>selected.</div>
+      <div>
+        <div class="fi"><div class="fdot"></div><div><div class="fn">IAC Fellow</div><div class="fo">Secured $15k grant for NYC nonprofit</div></div></div>
+        <div class="fi"><div class="fdot"></div><div><div class="fn">Break Through Tech AI</div><div class="fo">Cornell Tech · 3,000+ applicants</div></div></div>
+        <div class="fi"><div class="fdot"></div><div><div class="fn">Google SWE Fellowship</div><div class="fo">Software Engineering</div></div></div>
+      </div>
+    </div>
+
     <div class="card c-humor" id="projects">
       <div class="pnum">01</div>
       <div class="pname">The Humor Project</div>
@@ -164,13 +180,35 @@
       </div>
     </div>
 
-    <div class="card c-fellows">
-      <div class="lbl">Fellowships</div>
-      <div class="ft">Recognized and<br>selected.</div>
-      <div>
-        <div class="fi"><div class="fdot"></div><div><div class="fn">IAC Fellow</div><div class="fo">Secured $15k grant for NYC nonprofit</div></div></div>
-        <div class="fi"><div class="fdot"></div><div><div class="fn">Break Through Tech AI</div><div class="fo">Cornell Tech · 3,000+ applicants</div></div></div>
-        <div class="fi"><div class="fdot"></div><div><div class="fn">Google SWE Fellowship</div><div class="fo">Software Engineering</div></div></div>
+    <div class="card c-citysense">
+      <div class="pnum">02</div>
+      <div class="pname">CitySense</div>
+      <div class="pdesc">ML-powered urban sensing project.</div>
+      <div class="stacks">
+        <span class="stk">Python</span><span class="stk">ML</span><span class="stk">Geospatial</span>
+      </div>
+    </div>
+
+    <div class="card c-herwave">
+      <span class="wip">In progress</span>
+      <div class="pnum">03</div>
+      <div class="pname">Herwave</div>
+      <div class="pdesc">Cycle-syncing app for women's health.</div>
+      <div class="stacks">
+        <span class="stk">Next.js</span><span class="stk">Claude API</span>
+      </div>
+    </div>
+
+    <!-- ROW 7-9: Experience + Writing + Research -->
+    <div class="card c-exp">
+      <div class="lbl">Work Experience</div>
+      <div class="expl">
+        <div><div class="er">AI Strategy Analyst</div><div class="ep">MetLife</div><div class="ey">2025 · Present</div></div>
+        <div><div class="er">ML Fellow</div><div class="ep">Break Through Tech / Cornell Tech</div><div class="ey">2025 · Present</div></div>
+        <div><div class="er">Technical Consultant</div><div class="ep">Hello Insight</div><div class="ey">2024 · Present</div></div>
+        <div><div class="er">Systems Analyst Intern</div><div class="ep">Care.com</div><div class="ey">2024</div></div>
+        <div><div class="er">Computational Research Intern</div><div class="ep">Columbia Irving Medical Center</div><div class="ey">2023</div></div>
+        <div><div class="er">Data Analyst</div><div class="ep">Intergenerational Change Initiative</div><div class="ey">2022 to 2024</div></div>
       </div>
     </div>
 
@@ -192,69 +230,50 @@
       </div>
     </div>
 
-    <div class="card c-exp">
-      <div class="lbl">Experience</div>
-      <div class="expl">
-        <div><div class="er">AI Strategy Analyst</div><div class="ep">MetLife</div><div class="ey">2025 · Present</div></div>
-        <div><div class="er">ML Fellow</div><div class="ep">Break Through Tech / Cornell Tech</div><div class="ey">2025 · Present</div></div>
-        <div><div class="er">Technical Consultant</div><div class="ep">Hello Insight</div><div class="ey">2024 · Present</div></div>
-        <div><div class="er">Systems Analyst Intern</div><div class="ep">Care.com</div><div class="ey">2024</div></div>
-        <div><div class="er">Computational Research Intern</div><div class="ep">Columbia Irving Medical Center</div><div class="ey">2023</div></div>
-        <div><div class="er">Data Analyst</div><div class="ep">Intergenerational Change Initiative</div><div class="ey">2022 to 2024</div></div>
+    <div class="card c-research" style="position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-20px;right:-20px;font-size:120px;opacity:0.07;line-height:1;pointer-events:none;">🧠</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div class="lbl">Research · Columbia University Irving Medical Center</div>
+        <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(255,255,255,0.6);color:#9d174d;font-weight:500;white-space:nowrap;margin-left:8px;">2023 · SRI Poster</span>
       </div>
-    </div>
-
-    <div class="card c-citysense">
-      <div class="pnum">02</div>
-      <div class="pname">CitySense</div>
-      <div class="pdesc">ML-powered urban sensing project.</div>
-      <div class="stacks">
-        <span class="stk">Python</span><span class="stk">ML</span><span class="stk">Geospatial</span>
-      </div>
-    </div>
-
-    <div class="card c-herwave">
-      <span class="wip">In progress</span>
-      <div class="pnum">03</div>
-      <div class="pname">Herwave</div>
-      <div class="pdesc">Cycle-syncing app for women's health. Bold design, real utility.</div>
-      <div class="stacks">
-        <span class="stk">Next.js</span><span class="stk">Claude API</span>
-      </div>
-    </div>
-
-    <div class="card c-research">
-      <div class="lbl">Research · Columbia University</div>
-      <div class="res-title">Striatal Modulation of a Cholinergic Output Pathway to the Cortex During Instrumental Learning</div>
-      <div class="res-org">Columbia University Irving Medical Center · 2023</div>
-      <div class="res-desc">Studied cognitive symptoms in schizophrenia, specifically how cholinergic disruption and striatal lesions impair reversal learning. Published SRI poster.</div>
-      <div class="res-stacks">
-        <span class="res-stk">MATLAB</span><span class="res-stk">Neuroscience</span><span class="res-stk">Statistical Analysis</span><span class="res-stk">Data Analysis</span>
+      <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:400;color:#831843;line-height:1.35;letter-spacing:-0.3px;margin-top:0.6rem;max-width:80%;">Striatal Modulation of a Cholinergic Output Pathway to the Cortex During Instrumental Learning</div>
+      <div style="font-size:12.5px;line-height:1.65;color:#9d174d;opacity:0.8;margin-top:0.5rem;">Studied how cholinergic disruption and striatal lesions impair reversal learning — a key cognitive deficit in schizophrenia. Conducted at the Molecular Therapeutics department using MATLAB-based statistical analysis.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:0.6rem;">
+        <span class="res-stk">MATLAB</span><span class="res-stk">Neuroscience</span><span class="res-stk">Statistical Analysis</span><span class="res-stk">Data Analysis</span><span class="res-stk">Hypothesis Testing</span>
       </div>
     </div>
 
     <div class="card c-lgr">
-      <div style="font-size:26px;line-height:1;margin-bottom:4px;">🤝</div>
-      <div class="lgrt">Let's Get Ready</div>
-      <div class="lgrd">College coach supporting high school seniors through applications, financial aid appeals, and scholarship strategies.</div>
+      <div class="lbl">Volunteer · Let's Get Ready</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:#7c2d12;letter-spacing:-0.3px;line-height:1.2;margin:0.5rem 0;">Helping students get to college.</div>
+      <div style="font-size:12.5px;color:#92400e;opacity:0.75;line-height:1.6;">Coach for high school seniors navigating apps, financial aid, and scholarships. Making higher ed more accessible, one student at a time.</div>
+      <div style="display:flex;gap:5px;margin-top:0.5rem;flex-wrap:wrap;">
+        <span style="font-size:10px;padding:3px 9px;border-radius:100px;background:rgba(255,255,255,0.6);color:#92400e;">Financial Aid</span>
+        <span style="font-size:10px;padding:3px 9px;border-radius:100px;background:rgba(255,255,255,0.6);color:#92400e;">College Apps</span>
+        <span style="font-size:10px;padding:3px 9px;border-radius:100px;background:rgba(255,255,255,0.6);color:#92400e;">Scholarships</span>
+      </div>
     </div>
 
-    <div class="card c-currently">
+    <div class="card c-currently" style="position:relative;overflow:hidden;">
+      <div style="position:absolute;bottom:-15px;right:-10px;font-size:90px;opacity:0.07;line-height:1;pointer-events:none;animation:fl 6s ease-in-out infinite;">✨</div>
       <div class="cl">Currently</div>
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;">
         <div class="ci"><div class="ct">Keeping up with</div><div class="cv">AI and the latest in tech</div></div>
         <div class="ci"><div class="ct">Exploring</div><div class="cv">NYC restaurant hopping 🍜</div></div>
         <div class="ci"><div class="ct">Building</div><div class="cv">This website, lol</div></div>
       </div>
+      <div style="font-size:11px;color:#92400e;opacity:0.4;margin-top:0.5rem;font-style:italic;">Updated March 2026</div>
     </div>
 
-    <div class="card c-facts">
+    <div class="card c-facts" style="position:relative;overflow:hidden;">
+      <div style="position:absolute;bottom:-15px;right:-10px;font-size:90px;opacity:0.08;line-height:1;pointer-events:none;transform:rotate(-10deg);">🎃</div>
       <div class="lbl">Fun facts</div>
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;">
         <div class="fci"><div class="fcn">01</div><div>Born on Halloween 🎃</div></div>
         <div class="fci"><div class="fcn">02</div><div>Always chasing a new cuisine in NYC</div></div>
         <div class="fci"><div class="fcn">03</div><div>Started cooking at 13, still at it 🍳</div></div>
       </div>
+      <div style="font-size:11px;color:#92400e;opacity:0.4;margin-top:0.5rem;font-style:italic;">...and always building something new</div>
     </div>
 
     <div class="card c-contact" id="contact">
@@ -263,7 +282,7 @@
         <a class="cl-a" href="https://github.com/siara550" target="_blank"><div class="cl-ic">gh</div>github.com/siara550</a>
         <a class="cl-a" href="https://www.linkedin.com/in/siara-chowdhury/" target="_blank"><div class="cl-ic">in</div>linkedin · siara-chowdhury</a>
         <a class="cl-a" href="https://substack.com/@thoughtswithsiaaa" target="_blank"><div class="cl-ic">✍</div>Substack</a>
-        <a class="cl-a" href="/cdn-cgi/l/email-protection#72011b130013111a1d05161a07000b47474232151f131b1e5c111d1f"><div class="cl-ic">@</div><span class="__cf_email__" data-cfemail="b2c1dbd3c0d3d1daddc5d6dac7c0cb878782f2d5dfd3dbde9cd1dddf">[email&#160;protected]</span></a>
+        <a class="cl-a" href="/cdn-cgi/l/email-protection#41322820332022292e36252934333874747101262c20282d6f222e2c"><div class="cl-ic">@</div><span class="__cf_email__" data-cfemail="4e3d272f3c2f2d2621392a263b3c377b7b7e0e29232f2722602d2123">[email&#160;protected]</span></a>
       </div>
     </div>
 
@@ -275,47 +294,38 @@
   </footer>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
   let mx = 0, my = 0, rx = 0, ry = 0;
 
   document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
+    mx = e.clientX;
+    my = e.clientY;
+    cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
   });
 
   function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.transform = `translate(${rx - 17}px, ${ry - 17}px)`;
     requestAnimationFrame(animateRing);
   }
   animateRing();
 
   document.querySelectorAll('a, .card').forEach(el => {
     el.addEventListener('mouseenter', () => {
-      cursor.style.width = '22px';
-      cursor.style.height = '22px';
-      cursor.style.background = 'rgba(120,80,200,0.5)';
-      ring.style.width = '50px';
-      ring.style.height = '50px';
+      cursor.style.width = '18px';
+      cursor.style.height = '18px';
+      ring.style.width = '48px';
+      ring.style.height = '48px';
     });
     el.addEventListener('mouseleave', () => {
-      cursor.style.width = '14px';
-      cursor.style.height = '14px';
-      cursor.style.background = 'rgba(120,80,200,0.35)';
-      ring.style.width = '36px';
-      ring.style.height = '36px';
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '34px';
+      ring.style.height = '34px';
     });
   });
 
-  const cards = Array.from(document.querySelectorAll('.card'));
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const i = cards.indexOf(entry.target);
-        setTimeout(() => {
-          entry.ta
+  const cards = Arr
