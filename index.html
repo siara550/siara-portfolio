@@ -18,10 +18,10 @@
       --radius: 20px; --gap: 12px;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--fg); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; overflow-x: hidden; cursor: none; }
-    #cursor { position: fixed; width: 10px; height: 10px; border-radius: 50%; background: #7c3aed; pointer-events: none; z-index: 99999; top: 0; left: 0; transition: width 0.15s, height 0.15s; }
-    #cursor-ring { position: fixed; width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid #7c3aed; opacity: 0.4; pointer-events: none; z-index: 99998; top: 0; left: 0; transition: width 0.15s, height 0.15s; }
-    * { cursor: none !important; }
+    body { background: var(--bg); color: var(--fg); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; overflow-x: hidden; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='6' fill='%237c3aed' opacity='0.85'/%3E%3C/svg%3E") 10 10, auto; }
+    a, .card, button { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='10' fill='none' stroke='%237c3aed' stroke-width='2' opacity='0.8'/%3E%3Ccircle cx='14' cy='14' r='4' fill='%237c3aed' opacity='0.9'/%3E%3C/svg%3E") 14 14, pointer !important; }
+    #cursor { display: none; }
+    #cursor-ring { display: none; }
     .wrapper { max-width: 1060px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
     nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; opacity: 0; animation: fadeDown 0.6s ease forwards; }
     .logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; letter-spacing: -0.5px; color: var(--fg); text-decoration: none; }
@@ -299,11 +299,11 @@
   const ring = document.getElementById('cursor-ring');
   let mx = 0, my = 0, rx = 0, ry = 0;
 
-  document.addEventListener('mousemove', e => {
+  window.addEventListener('mousemove', e => {
     mx = e.clientX;
     my = e.clientY;
     cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
-  });
+  }, true);
 
   function animateRing() {
     rx += (mx - rx) * 0.1;
